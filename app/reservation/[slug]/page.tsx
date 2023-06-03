@@ -1,10 +1,17 @@
+import ReservationHeader from "./components/ReservationHeader";
+import ReservationForm from "./components/ReservationForm";
 
 
 const ReservationPage = () => {
     return (
-        <div>
-            <p>Reservation Page here</p>
+
+        <div className={'border-t  h-screen'}>
+            <div className="py-9 w-3/5 m-auto">
+                <ReservationHeader/>
+                <ReservationForm/>
+            </div>
         </div>
+
     );
 };
 

@@ -1,5 +1,8 @@
 import './globals.css'
 import React from "react";
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import RestaurantCard from "./components/restaurantCard";
 
 export default function RootLayout({
   children,
@@ -13,7 +16,14 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body>
+      <main className={'bg-gray-200  min-h-screen '}>
+          <main className={'bg-white max-w-screen-2xl m-auto'}>
+              <Navbar />
+              {children}
+          </main>
+      </main>
+      </body>
     </html>
   )
 }
