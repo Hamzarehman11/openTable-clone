@@ -9,6 +9,7 @@ export interface RestaurantCardType {
     id: number,
     name:string,
     main_image: string,
+    slug: string,
     cuisine: Cuisine,
     location: Location,
     price: PRICE
@@ -22,7 +23,8 @@ const fetchRestaurants = async ():Promise<RestaurantCardType[]> => {
             main_image: true,
             cuisine: true,
             location:true,
-            price: true
+            price: true,
+            slug:true
         }
     });
 }
@@ -32,7 +34,6 @@ const inter = Inter({subsets: ['latin']})
 
 export default async function Home() {
     const restaurants = await fetchRestaurants();
-    console.log(restaurants)
     return (
 
         <>

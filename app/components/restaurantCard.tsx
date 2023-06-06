@@ -12,7 +12,7 @@ const RestaurantCard = ({restaurant}: Props) => {
 
         <main>
             <div className={'w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer'}>
-                <Link href={'/restaurant/bugerlab'}>
+                <Link href={`/restaurant/${restaurant.slug}`}>
                     <img className={'w-full h-36'}
                          src={restaurant.main_image}
                          alt="restaurant-img"/>
