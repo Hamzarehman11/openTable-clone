@@ -21,7 +21,7 @@ const RestaurantDescription = ({restaurant}: Props) => {
     return (
         <div className={'flex m-auto w-2/3 justify-between items-start -mt-11'}>
             <div className={'bg-white w-[70%] rounded p-3 shadow'}>
-                <RestaurantNavbar/>
+                <RestaurantNavbar slug={restaurant.slug}/>
                 {/*Restaurant Title*/}
                 <div className={'mt-4 border-b pb-6'}>
                     <h1 className={'font-bold text-4xl'}>{restaurant.name}</h1>

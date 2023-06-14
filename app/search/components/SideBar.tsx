@@ -1,23 +1,25 @@
-const SideBar = () => {
+import {Cuisine, Location} from "@prisma/client";
+
+
+const SideBar = ({locations, cuisines}: { locations: Location[], cuisines: Cuisine[] }) => {
+
+    const renderedLocations = locations.map((location) => {
+        return <p key={location.id} className={'font-light text-reg capitalize'}>{location.name}</p>
+    });
+
+    const renderedCuisines = cuisines.map((cuisine) => {
+        return <p key={cuisine.id} className={'font-light text-reg capitalize'}>{cuisine.name}</p>
+    });
+
     return (
         <>
             <div className="border-b pb-4">
                 <h1 className={'mb-2'}>Region</h1>
-                <p className={'font-light text-reg'}>Toronto</p>
-                <p className={'font-light text-reg'}>Ottawa</p>
-                <p className={'font-light text-reg'}>Montreal</p>
-                <p className={'font-light text-reg'}>Hamilton</p>
-                <p className={'font-light text-reg'}>Kingston</p>
-                <p className={'font-light text-reg'}>Niagara</p>
+                {renderedLocations}
             </div>
             <div className="border-b pb-4">
                 <h1 className={'mb-2'}>Cuisine</h1>
-                <p className={'font-light text-reg'}>Mexican</p>
-                <p className={'font-light text-reg'}>Pakistani</p>
-                <p className={'font-light text-reg'}>Chinese</p>
-                <p className={'font-light text-reg'}>Indian</p>
-                <p className={'font-light text-reg'}>American</p>
-                <p className={'font-light text-reg'}>Thai</p>
+                {renderedCuisines}
             </div>
             <div className="mt-3 pb-4">
                 <h1 className="mb-2">Price</h1>

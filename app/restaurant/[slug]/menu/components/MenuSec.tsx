@@ -1,6 +1,15 @@
 import MenuCard from "./MenuCard";
+import { Item } from '@prisma/client';
 
-const MenuSec = () => {
+const MenuSec = ({ menu }:{ menu: Item[] }) => {
+
+
+    const menuItem = menu.map((item)=>{
+        return (
+            <MenuCard key={item.id} item={item}/>
+        )
+    })
+
     return (
         <main className="bg-white mt-5">
             <div>
@@ -8,7 +17,7 @@ const MenuSec = () => {
                     <h1 className="font-bold text-3xl">Menu</h1>
                 </div>
                 <div className="flex flex-wrap justify-between">
-                    <MenuCard />
+                    {menu.length ? menuItem : 'This restaurant does not have any menu'}
                 </div>
             </div>
         </main>

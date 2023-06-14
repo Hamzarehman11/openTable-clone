@@ -6,6 +6,8 @@ interface Props {
 }
 
 const RestaurantHeader = ({restaurant}: Props) => {
+
+
     return (
         <main>
             <div className={'h-96 overflow-hidden'}>
