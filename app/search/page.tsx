@@ -1,13 +1,13 @@
 import Header from "../components/Header";
 import SideBar from "./components/SideBar";
 import SearchRestaurantCard from "./components/SearchRestaurantCard";
-import {PrismaClient} from "@prisma/client";
+import {PRICE, PrismaClient} from "@prisma/client";
 
 
 const prisma = new PrismaClient();
 
 
-const fetchRestaurantsByCity = (city: string) => {
+const fetchRestaurantsByCity = (city: string, cuisine: string, price: PRICE) => {
     const select = {
         id: true,
         name: true,
@@ -24,6 +24,14 @@ const fetchRestaurantsByCity = (city: string) => {
                 name: {
                     equals: city.toLowerCase()
                 }
+            },
+            cuisine: {
+                name: {
+                    equals: cuisine
+                }
+            },
+            price: {
+                equals: price
             }
         },
         select
@@ -40,15 +48,15 @@ const fetchCuisines = async () => {
 }
 
 
-const Search = async ({searchParams}: { searchParams: { city: string } }) => {
+const Search = async ({searchParams}: { searchParams: { city: string, cuisine: string, price: PRICE } }) => {
 
-    const restaurants = await fetchRestaurantsByCity(searchParams.city);
+    const restaurants = await fetchRestaurantsByCity(searchParams.city, searchParams.cuisine,searchParams.price);
     const locations = await fetchLocations();
     const cuisines = await fetchCuisines();
 
     const renderRestaurants = restaurants.map((restaurant) => {
         return (
-            <SearchRestaurantCard restaurant={restaurant}/>
+            <SearchRestaurantCard key={restaurant.id} restaurant={restaurant}/>
         )
     })
 
@@ -59,7 +67,7 @@ const Search = async ({searchParams}: { searchParams: { city: string } }) => {
             <Header/>
             <div className={'flex py-4 m-auto w-2/3 justify-between items-start'}>
                 <div className="w-1/5">
-                    <SideBar locations={locations} cuisines={cuisines}/>
+                    <SideBar locations={locations} cuisines={cuisines} searchParams={searchParams}/>
                 </div>
                 <div className="w-5/6">
                     {restaurants.length ? renderRestaurants : 'There is no restaurant found in this area!'}
