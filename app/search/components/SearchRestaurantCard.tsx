@@ -1,5 +1,7 @@
 import Link from "next/link";
-import {Cuisine, Location, PRICE} from "@prisma/client";
+import {Cuisine, Location, PRICE, Review} from "@prisma/client";
+import Price from "../../components/Price";
+import Rating from "../../components/Rating";
 
 
 interface Restaurant {
@@ -9,11 +11,28 @@ interface Restaurant {
     price: PRICE,
     cuisine: Cuisine,
     location: Location,
-    slug: string
+    slug: string,
+    reviews: Review[]
 }
 
 
 const SearchRestaurantCard = ({restaurant}: { restaurant: Restaurant }) => {
+
+
+    const reviewText = () => {
+        const reviewPoint = restaurant.reviews.map((review) => review.rating)
+        if (restaurant) {
+            if (reviewPoint.some((elem) => elem === 5)) {
+                return <p className="ml-2 text-sm">Awesome</p>
+            } else if (reviewPoint.some((elem) => elem < 5 && elem >= 4)) {
+                return <p className="ml-2 text-sm">Good</p>
+            } else if (reviewPoint.some((elem) => elem < 4 && elem >= 3.5)) {
+                return <p className="ml-2 text-sm">Ordinary</p>
+            } else {
+                return <p className="ml-2 text-sm">Not Recommended</p>
+            }
+        }
+    }
 
     return (
         <div className={'border-b flex pb-5 ml-4'}>
@@ -22,12 +41,14 @@ const SearchRestaurantCard = ({restaurant}: { restaurant: Restaurant }) => {
             <div className="pl-5">
                 <h2 className="text-2xl font-bold">{restaurant.name}</h2>
                 <div className="flex items-start mt-2">
-                    <div className="flex mb-2">*****</div>
-                    <p className="ml-2 text-sm">Awesome</p>
+                    <div className="flex mb-2">
+                        <Rating rating={restaurant.reviews}/>
+                    </div>
+                    {reviewText()}
                 </div>
                 <div className="mb-9">
                     <div className="font-light flex text-reg">
-                        <p className="mr-4">$$$</p>
+                        <Price price={restaurant.price}/>
                         <p className="mr-4 capitalize">{restaurant.cuisine.name}</p>
                         <p className="mr-4 capitalize">{restaurant.location.name}</p>
                     </div>

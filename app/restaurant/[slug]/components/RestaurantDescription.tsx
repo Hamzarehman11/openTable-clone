@@ -2,6 +2,7 @@ import RestaurantReviews from "./RestaurantReviews";
 import RestaurantNavbar from "./RestaurantNavbar";
 import ReservationCard from "./ReservationCard";
 import {RestaurantType} from "../page";
+import Rating from "../../../components/Rating";
 
 
 interface Props {
@@ -16,7 +17,8 @@ const RestaurantDescription = ({restaurant}: Props) => {
             <img className={'w-56 h-44 mr-1 mb-1'}
                  src={image} alt=""/>
         )
-    })
+    });
+
 
     return (
         <div className={'flex m-auto w-2/3 justify-between items-start -mt-11'}>
@@ -31,11 +33,11 @@ const RestaurantDescription = ({restaurant}: Props) => {
                 {/*Restaurant Ratings & Reviews*/}
                 <div className={'flex items-end'}>
                     <div className={'ratings mt-2 flex items-center'}>
-                        <p>******</p>
+                        <Rating rating={restaurant.reviews}/>
                         <p className={'text-reg ml-3'}>4.9</p>
                     </div>
                     <div>
-                        <p className={'text-reg ml-4'}>600 Reviews</p>
+                        <p className={'text-reg ml-4'}>{restaurant.reviews.length} Review{restaurant.reviews.length <= 1 ? '' : 's'}</p>
                     </div>
                 </div>
                 {/*Restaurant Ratings & Reviews*/}
@@ -54,7 +56,7 @@ const RestaurantDescription = ({restaurant}: Props) => {
                     </div>
                 </div>
                 {/*Restaurant Images*/}
-                <RestaurantReviews/>
+                <RestaurantReviews reviews={restaurant.reviews} restaurant={restaurant}/>
             </div>
 
             <div className="w-[27%] relative text-reg">

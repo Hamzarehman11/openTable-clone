@@ -1,6 +1,6 @@
 import RestaurantHeader from "./components/RestaurantHeader";
 import RestaurantDescription from "./components/RestaurantDescription";
-import {PrismaClient,Location} from "@prisma/client";
+import {PrismaClient, Location, Review} from "@prisma/client";
 
 
 const prisma = new PrismaClient();
@@ -11,7 +11,8 @@ export interface RestaurantType {
     images: string[],
     description: string,
     slug: string,
-    location:Location
+    location:Location,
+    reviews: Review[]
 }
 
 const fetchRestaurantBySlug = async (slug:string):Promise<RestaurantType> => {
@@ -25,7 +26,8 @@ const fetchRestaurantBySlug = async (slug:string):Promise<RestaurantType> => {
             images: true,
             description: true,
             slug: true,
-            location:true
+            location:true,
+            reviews: true
         }
     })
     if(!restaurant){
